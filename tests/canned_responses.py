@@ -188,7 +188,6 @@ def make_sample_corpus(n: int = 3) -> list[CorpusPaper]:
         CorpusPaper(
             title=f"Corpus Paper {i}",
             abstract=f"Abstract for corpus paper {i}.",
-            added_date=datetime(2026, 1, 1 + i),
             modified_date=datetime(2026, 1, 1 + i),
             paths=[f"2026/survey/topic-{i}"],
         )

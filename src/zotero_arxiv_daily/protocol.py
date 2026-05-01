@@ -107,5 +107,5 @@ class Paper:
 class CorpusPaper:
     title: str
     abstract: str
-    added_date: datetime
+    modified_date: datetime
     paths: list[str]

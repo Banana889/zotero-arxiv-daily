@@ -60,9 +60,9 @@ def _make_executor(include_patterns=None, ignore_patterns=None):
 def test_filter_corpus_matches_any_path_against_any_pattern():
     executor = _make_executor(include_patterns=["2026/survey/**", "2026/reading-group/**"])
     corpus = [
-        CorpusPaper(title="Survey Paper", abstract="", added_date=datetime(2026, 1, 1), paths=["2026/survey/topic-a", "archive/misc"]),
-        CorpusPaper(title="Reading Group Paper", abstract="", added_date=datetime(2026, 1, 2), paths=["notes/inbox", "2026/reading-group/week-1"]),
-        CorpusPaper(title="Excluded Paper", abstract="", added_date=datetime(2026, 1, 3), paths=["2025/other/topic"]),
+        CorpusPaper(title="Survey Paper", abstract="", modified_date=datetime(2026, 1, 1), paths=["2026/survey/topic-a", "archive/misc"]),
+        CorpusPaper(title="Reading Group Paper", abstract="", modified_date=datetime(2026, 1, 2), paths=["notes/inbox", "2026/reading-group/week-1"]),
+        CorpusPaper(title="Excluded Paper", abstract="", modified_date=datetime(2026, 1, 3), paths=["2025/other/topic"]),
     ]
     filtered = executor.filter_corpus(corpus)
     assert [p.title for p in filtered] == ["Survey Paper", "Reading Group Paper"]
@@ -71,9 +71,9 @@ def test_filter_corpus_matches_any_path_against_any_pattern():
 def test_filter_corpus_excludes_papers_matching_ignore_path():
     executor = _make_executor(ignore_patterns=["archive/**", "2025/**"])
     corpus = [
-        CorpusPaper(title="Active Paper", abstract="", added_date=datetime(2026, 1, 1), paths=["2026/survey/topic-a"]),
-        CorpusPaper(title="Archived Paper", abstract="", added_date=datetime(2026, 1, 2), paths=["archive/misc"]),
-        CorpusPaper(title="Old Paper", abstract="", added_date=datetime(2026, 1, 3), paths=["2025/other/topic"]),
+        CorpusPaper(title="Active Paper", abstract="", modified_date=datetime(2026, 1, 1), paths=["2026/survey/topic-a"]),
+        CorpusPaper(title="Archived Paper", abstract="", modified_date=datetime(2026, 1, 2), paths=["archive/misc"]),
+        CorpusPaper(title="Old Paper", abstract="", modified_date=datetime(2026, 1, 3), paths=["2025/other/topic"]),
     ]
     filtered = executor.filter_corpus(corpus)
     assert [p.title for p in filtered] == ["Active Paper"]
@@ -82,8 +82,8 @@ def test_filter_corpus_excludes_papers_matching_ignore_path():
 def test_filter_corpus_ignore_path_takes_precedence_over_include_path():
     executor = _make_executor(include_patterns=["2026/**"], ignore_patterns=["2026/ignore/**"])
     corpus = [
-        CorpusPaper(title="Included Paper", abstract="", added_date=datetime(2026, 1, 1), paths=["2026/survey/topic-a"]),
-        CorpusPaper(title="Ignored Paper", abstract="", added_date=datetime(2026, 1, 2), paths=["2026/ignore/topic-b"]),
+        CorpusPaper(title="Included Paper", abstract="", modified_date=datetime(2026, 1, 1), paths=["2026/survey/topic-a"]),
+        CorpusPaper(title="Ignored Paper", abstract="", modified_date=datetime(2026, 1, 2), paths=["2026/ignore/topic-b"]),
     ]
     filtered = executor.filter_corpus(corpus)
     assert [p.title for p in filtered] == ["Included Paper"]
@@ -92,8 +92,8 @@ def test_filter_corpus_ignore_path_takes_precedence_over_include_path():
 def test_filter_corpus_no_filters_returns_all():
     executor = _make_executor()
     corpus = [
-        CorpusPaper(title="Paper A", abstract="", added_date=datetime(2026, 1, 1), paths=["foo"]),
-        CorpusPaper(title="Paper B", abstract="", added_date=datetime(2026, 1, 2), paths=["bar"]),
+        CorpusPaper(title="Paper A", abstract="", modified_date=datetime(2026, 1, 1), paths=["foo"]),
+        CorpusPaper(title="Paper B", abstract="", modified_date=datetime(2026, 1, 2), paths=["bar"]),
     ]
     filtered = executor.filter_corpus(corpus)
     assert filtered == corpus
@@ -128,6 +128,7 @@ def test_fetch_zotero_corpus_paper_with_zero_collections(config, monkeypatch):
                 "title": "No Collection Paper",
                 "abstractNote": "Abstract.",
                 "dateAdded": "2026-03-01T00:00:00Z",
+                "dateModified": "2026-04-15T10:00:00Z",
                 "collections": [],
             }
         }

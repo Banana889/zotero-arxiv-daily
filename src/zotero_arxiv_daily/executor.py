@@ -58,7 +58,7 @@ class Executor:
         return [CorpusPaper(
             title=c['data']['title'],
             abstract=c['data']['abstractNote'],
-            added_date=datetime.strptime(c['data']['dateAdded'], '%Y-%m-%dT%H:%M:%SZ'),
+            modified_date=datetime.strptime(c['data']['dateModified'], '%Y-%m-%dT%H:%M:%SZ'),
             paths=c['paths']
         ) for c in corpus]
     

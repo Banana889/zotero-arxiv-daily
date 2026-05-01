@@ -84,6 +84,7 @@ _DEFAULT_ITEMS = [
             "title": "Stub Paper 1",
             "abstractNote": "Abstract of stub paper 1.",
             "dateAdded": "2026-01-15T10:00:00Z",
+            "dateModified": "2026-04-15T10:00:00Z",
             "collections": ["COL2"],
         },
     },
@@ -92,6 +93,7 @@ _DEFAULT_ITEMS = [
             "title": "Stub Paper 2",
             "abstractNote": "Abstract of stub paper 2.",
             "dateAdded": "2026-02-20T12:00:00Z",
+            "dateModified": "2026-04-15T10:00:00Z",
             "collections": ["COL1"],
         },
     },
@@ -187,6 +189,7 @@ def make_sample_corpus(n: int = 3) -> list[CorpusPaper]:
             title=f"Corpus Paper {i}",
             abstract=f"Abstract for corpus paper {i}.",
             added_date=datetime(2026, 1, 1 + i),
+            modified_date=datetime(2026, 1, 1 + i),
             paths=[f"2026/survey/topic-{i}"],
         )
         for i in range(n)

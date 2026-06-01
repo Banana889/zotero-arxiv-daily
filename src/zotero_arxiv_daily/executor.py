@@ -11,6 +11,7 @@ from .construct_email import render_email
 from .utils import send_email
 from openai import OpenAI
 from tqdm import tqdm
+import time
 
 
 def normalize_path_patterns(patterns: list[str] | ListConfig | None, config_key: str) -> list[str] | None:
@@ -98,6 +99,8 @@ class Executor:
             return
         all_papers = []
         for source, retriever in self.retrievers.items():
+            # 在这里等待11s，防止被判定为频繁访问
+            time.sleep(11)
             logger.info(f"Retrieving {source} papers...")
             papers = retriever.retrieve_papers()
             if len(papers) == 0:
